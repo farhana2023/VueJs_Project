@@ -15,7 +15,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #eff4f9;
+  background: #f6f8fa;
   color: #444444;
 }
 
@@ -610,7 +610,8 @@ h6 {
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
   box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-  background-color:#fff;
+  background-color: #1074d8;
+  /*  background-color:#ffffff; */
 
 }
 
@@ -688,7 +689,7 @@ h6 {
  /* color: #4154f1;*/ 
  background-color: #1478f4;
   transition: 0.3;
-  background: #584772;
+  background: #dde2ee;
   padding: 10px 15px;
   border-radius: 4px;
 }
@@ -697,27 +698,27 @@ h6 {
   font-size: 16px;
   margin-right: 10px;
  /* color: #4154f1;*/ 
- color: #fff;
+ color: black;
 }
 
 .sidebar-nav .nav-link.collapsed {
   color: #012970;
-  background: #fff;
+  background: #1074d8;
 }
 
 .sidebar-nav .nav-link.collapsed i {
-  color: #899bbd;
+  color:  black;
 }
 
 .sidebar-nav .nav-link:hover {
-  color:  #fff;
-  background: #f6f9ff; 
+  color: black;
+  background: #f5f3f9;
 
  
 }
 
 .sidebar-nav .nav-link:hover i {
-  color:  #fff;
+  color:   black;
 
 }
 

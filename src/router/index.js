@@ -9,11 +9,14 @@ import DashboardView  from '../views/DashboardView.vue';
 
 import PayrollView  from '../views/PayrollView.vue';
 
-import { useAuthStore } from '../stores/auth';
+import { useUserStore } from '../stores/user';
+
+import PersonalView from '../views/PersonalView.vue';
+import EmployeeListView from '../views/EmployeeListView.vue';
 
 
 
-let isLogin=false;
+
 
 
 const router = createRouter({
@@ -68,29 +71,38 @@ const router = createRouter({
       meta:{
         auth:true,
       }
-    }
- 
+    },
+
+    {
+      path: '/Personal',
+      name: 'personal',
+      component: PersonalView,
+      meta:{
+        auth:true,
+      }
+    },
+
+
+    {
+      path: '/EmployeeList',
+      name: 'employeeList',
+      component: EmployeeListView,
+      meta:{
+        auth:true,
+      }
+    },
   ]
 });
 
-router.beforeEach(async (to, from) => {
-  // console.log("FROM: ",from);
-  // console.log("TO: ", to);
-  const authStore = useAuthStore();
+router.beforeEach(async (to) => {
 
-  console.log('AUTH:',authStore);
+  const userStore = useUserStore();
 
-  if(to.meta.auth && !authStore.isAuthenticated) {
+  if(to.meta.auth && !userStore.isAuthenticated) {
     return { name: 'login' };
   }
 
-  if(to.fullPath == '/login' && authStore.isAuthenticated) {
-    return { name: 'home' };
-  }
 
-  if(to.fullPath == '/register' && authStore.isAuthenticated) {
-    return { name: 'home' };
-  }
 });
 
 export default router

@@ -173,13 +173,13 @@
             data-bs-toggle="dropdown"
           >
             <img src="assets/img/farha.jpg" alt="Profile" class="rounded-circle" />
-            <span class="d-none d-md-block dropdown-toggle ps-2">Farhana Islam</span> </a
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ fullName }}</span> </a
           ><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Farhana Islam</h6>
-              <span>Web Designer</span>
+              <h6>{{ fullName}}</h6>
+              <span>{{ occupation }}r</span>
             </li>
             <li>
               <hr class="dropdown-divider" />
@@ -216,7 +216,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a @click.prevent="onLogoutClicked()"  class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -248,29 +248,43 @@
 </template>
 
 <script>
-import { useAuthStore } from '../stores/auth';
+import { useUserStore } from '../stores/user';
 export default {
   name: 'HrHeader',
 
   computed: {
             isLogin() {
-                const authStore = useAuthStore();
-                return authStore.isAuthenticated;
+        
+                return this.userStore.isAuthenticated;
+            },
+            fullName(){
+              return this.userStore.fullName;
+            },
+            occupation(){
+              return this.userStore.title;
             }
         },
   methods:{
 
     OnLoginClicked(){
        this.$router.push('/login')
-      // this.$router.push({name:'login'});
-
-      // this.$router.push({name: 'login'});
+   
     },
     OnRegisterClicked(){
         this.$router.push({name:'register'});
-       // this.$router.push('/register')
-    }
 
+    },
+
+onLogoutClicked(){
+
+  this.userStore.loginUser();
+  this.$router.push({name:'login'});
+}
+
+  },
+  setup(){
+const userStore=useUserStore();
+return { userStore };
   }
 }
 </script>

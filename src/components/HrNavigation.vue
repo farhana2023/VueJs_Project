@@ -16,7 +16,7 @@
         </RouterLink>
       </li>
       <!-- End Dashboard Nav -->
-      <li  class="nav-item">
+      <li class="nav-item">
         <RouterLink class="nav-link collapsed" to="/profile">
           <i class="bi bi-person"></i>
           <span>Profile</span>
@@ -24,7 +24,7 @@
       </li>
       <!-- End Profile Page Nav -->
 
-      <li v-if="isLogin" class="nav-item">
+      <li  class="nav-item">
         <a
           class="nav-link collapsed"
           data-bs-target="#forms-nav"
@@ -36,9 +36,10 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Create Employee</span>
-            </a>
+            <RouterLink class="nav-link collapsed" to="/personal">
+              <i class="bi bi-circle"></i>
+              <span>Personal</span>
+            </RouterLink>
           </li>
           <li>
             <a href="forms-layouts.html">
@@ -46,9 +47,12 @@
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>View Employees</span>
-            </a>
+
+            <RouterLink class="nav-link collapsed" to="/employeeList">
+              <i class="bi bi-circle"></i>
+              <span>View Employees</span>
+            </RouterLink>
+          
           </li>
         </ul>
       </li>
@@ -70,7 +74,7 @@
       </li>
       <!-- End login Page Nav -->
 
-      <li  v-if="!isLogin" class="nav-item">
+      <li v-if="!isLogin" class="nav-item">
         <a class="nav-link" href="pages-blank.html">
           <i class="bi bi-file-earmark"></i>
           <span>Blank</span>
@@ -92,7 +96,7 @@
 
 <script>
 import { RouterLink } from 'vue-router'
-import { useAuthStore } from '../stores/auth';
+import { useUserStore } from '../stores/user'
 
 export default {
   name: 'HrNavigation',
@@ -100,11 +104,14 @@ export default {
     RouterLink
   },
   computed: {
-            isLogin() {
-                const authStore = useAuthStore();
-                return authStore.isAuthenticated;
-            }
-        },
+    isLogin() {
+  
+      return this.userStore.isAuthenticated
+    }
+  },  setup(){
+const userStore=useUserStore();
+return { userStore };
+  }
 
 }
 </script>

@@ -28,14 +28,14 @@
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input v-model="userName" type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input v-model ="password" type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
@@ -75,17 +75,36 @@
 
 
 
-
 <script>
-import { useAuthStore } from '../stores/auth';
+  import { useUserStore } from '../stores/user';
+
   export default {
     name: 'LoginView',
+    data() {
+      return {
+        userName: '',
+        password: ''
+      };
+    },
+
     methods: {
       onLoginClicked() {
-        const authStore = useAuthStore();
-        authStore.loginUser();
-        this.$router.push({name: 'home'});
-      }
+        console.log("U:",this.userName);
+        console.log("P:",this.password);
+        const success = this.userStore.loginUser(this.userName, this.password);
+        console.log('success:',success);
+        
+        if(success) {
+          this.$router.push({name: 'home'});
+        }
+      },
+      onDontHaveAccountClicked() {
+        this.$router.push({name: 'register'});
+      },
     },
+    setup() {
+      const userStore = useUserStore();
+      return { userStore };
+    }
   }
 </script>
